@@ -1,2 +1,2 @@
 # Pizza
-Make polyglot file, hide archive file into picture.
+制作图种，隐藏压缩包到图片中，更改后缀名即可打开。  
