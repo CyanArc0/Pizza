@@ -63,10 +63,9 @@ ApplicationWindow {
     }
     Dialog {
         id: myDialog
-        //title: "Pizza 1.0"
         modal: true
         contentItem:Text {
-            text: "<h3>Pizza 1.0</h3><p>Pre: .png .jpg ...<br>Suf: .zip</p><a href='https://github.com/CyanArc0/Pizza'>github.com/CyanArc0/Pizza</a>"
+            text: "<h3>Pizza 1.1</h3><p>Pre: .png .jpg ...<br>Suf: .zip</p><a href='https://github.com/CyanArc0/Pizza'>github.com/CyanArc0/Pizza</a>"
             // 告诉Text组件它包含HTML和链接
             textFormat: Text.RichText
             // 默认链接颜色和风格
