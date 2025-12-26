@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(Pizza VERSION 1.0 LANGUAGES CXX)
+project(Pizza VERSION 1.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -11,6 +11,8 @@ find_package(Qt6 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup(REQUIRES 6.8)
 
 include(disable-Exceptions-RTTI.cmake)
+
+include_directories("D:/Data/C++/Library" "D:/Library/BOOST/boost")
 
 qt_add_executable(appPizza
     main.cpp

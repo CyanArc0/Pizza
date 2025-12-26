@@ -2,9 +2,11 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Dialogs
+//import QtQuick.Controls.Material
 
-Window
-{
+ApplicationWindow {
+    //Material.theme: Material.Light
+    //Material.accent: Material.Blue
     id: mainWindow
     width: 360
     height: 640
@@ -40,10 +42,24 @@ Window
             messageDialog.text = text
             messageDialog.open()
         }
+        function onTaskFinished()
+        {
+            progressBar.value = 1.0
+            progressBar.indeterminate = false
+        }
     }
     MessageDialog
     {
         id: messageDialog
+    }
+    Button
+    {
+        text: '?'
+        width: height
+        onClicked:
+        {
+            myDialog.open()
+        }
     }
     Dialog {
         id: myDialog
@@ -65,18 +81,6 @@ Window
     {
         spacing: 10
         anchors.centerIn: parent
-        Row
-        {
-            anchors.horizontalCenter: parent.horizontalCenter
-            Button
-            {
-                text: '?'
-                onClicked:
-                {
-                    myDialog.open()
-                }
-            }
-        }
         Row
         {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -178,7 +182,13 @@ Window
                 //font.pointSize: 12
                 onClicked:
                 {
-                    ofileDialog.open()
+                    if(progressBar.indeterminate)
+                    {
+                        messageDialog.title = "Error"
+                        messageDialog.text = "The core is working"
+                        messageDialog.open()
+                    }
+                    else ofileDialog.open()
                 }
             }
             FileDialog {
@@ -196,6 +206,9 @@ Window
                     ofilePathField.text = ofileDialog.selectedFile
                     //console.log("选择的文件:", ofileDialog.selectedFile)
                     bridge.invokeMerge(pfilePathField.text,zfilePathField.text,ofilePathField.text)
+                    progressBar.value = 0.0
+                    progressBar.indeterminate = true
+
                 }
             }
         }
@@ -219,6 +232,16 @@ Window
                 width: 360
                 verticalAlignment: Text.AlignVCenter
                 readOnly: true
+            }
+        }
+        Row
+        {
+            anchors.horizontalCenter: parent.horizontalCenter
+            ProgressBar {
+                id: progressBar
+                width: 360
+                value: 0.0
+                indeterminate: false
             }
         }
     }

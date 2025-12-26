@@ -9,6 +9,8 @@
 #include <unistd.h>  // 提供 dup() 函数
 #include <expected>
 #include <string>
+#include <thread>
+//#include <QtConcurrent>
 #include "string_traits/struct_string.hpp"
 #include "bytes/file.hpp"
 
@@ -20,6 +22,7 @@ class Bridge : public QQuickItem
     QML_ELEMENT
 public:
     Bridge(){}
+    //~Bridge(){}
     static QString filePath(QUrl uri)
     {
         if(uri.isLocalFile())
@@ -87,17 +90,25 @@ public:
 
         return merge(fp,fz,fo);
     }
-public slots:
-    Q_INVOKABLE void invokeMerge(QUrl p,QUrl z,QUrl o)
+    void callMergePZ(QUrl p,QUrl z,QUrl o)
     {
         auto result = mergePZ(p,z,o);
         if(!result)[[unlikely]]
         {
             emit showMessage("Error",QString::fromStdString(result.error()));
         }
+        else emit taskFinished();
+    }
+private:
+    //std::thread io_pz;
+public slots:
+    Q_INVOKABLE void invokeMerge(QUrl p,QUrl z,QUrl o)
+    {
+        std::thread([this](QUrl p,QUrl z,QUrl o){this->callMergePZ(p,z,o);},p,z,o).detach();
     }
 signals:
     void showMessage(QString title,QString text);
+    void taskFinished();
 };
 
 #endif // BRIDGE_H

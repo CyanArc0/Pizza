@@ -1,5 +1,5 @@
 #pragma once
-#define $included$bytes$file_view 2.2
+#define $included$bytes$file_view 2.3
 
 #include<cstddef>
 #include<cstdio>
@@ -110,6 +110,7 @@ public:
     inline static std::size_t copy(file_view in,file_view out,std::size_t size=std::numeric_limits<std::size_t>::max(),std::size_t buffer_size=BUFSIZ)noexcept
     {
         void* buffer = std::malloc(buffer_size);
+        if(!buffer)return 0;
         std::size_t total_copied = 0;
         while (total_copied < size)
         {
