@@ -42,9 +42,16 @@ ApplicationWindow {
             messageDialog.text = text
             messageDialog.open()
         }
-        function onTaskFinished()
+        function onTaskFinished(sign)
         {
-            progressBar.value = 1.0
+            if(sign)
+            {
+                progressBar.value = 1.0
+            }
+            else
+            {
+                progressBar.value = 0.0
+            }
             progressBar.indeterminate = false
         }
     }
@@ -181,11 +188,17 @@ ApplicationWindow {
                 //font.pointSize: 12
                 onClicked:
                 {
-                    if(progressBar.indeterminate)
+                    if(pfilePathField.text==="")
                     {
-                        messageDialog.title = "Error"
-                        messageDialog.text = "The core is working"
-                        messageDialog.open()
+                        bridge.showMessage("Error","Pre-file-URI is empty.")
+                    }
+                    else if(zfilePathField.text==="")
+                    {
+                        bridge.showMessage("Error","Suf-file-URI is empty.")
+                    }
+                    else if(progressBar.indeterminate)
+                    {
+                        bridge.showMessage("Error","The core is working...")
                     }
                     else ofileDialog.open()
                 }

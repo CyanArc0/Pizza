@@ -97,7 +97,7 @@ public:
         {
             emit showMessage("Error",QString::fromStdString(result.error()));
         }
-        else emit taskFinished();
+        emit taskFinished(static_cast<bool>(result));
     }
 private:
     //std::thread io_pz;
@@ -108,7 +108,7 @@ public slots:
     }
 signals:
     void showMessage(QString title,QString text);
-    void taskFinished();
+    void taskFinished(bool sign);
 };
 
 #endif // BRIDGE_H
