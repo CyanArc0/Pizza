@@ -12,8 +12,6 @@ qt_standard_project_setup(REQUIRES 6.8)
 
 include(disable-Exceptions-RTTI.cmake)
 
-include_directories("D:/Data/C++/Library" "D:/Library/BOOST/boost")
-
 qt_add_executable(appPizza
     main.cpp
     resources/Pizza.rc
@@ -55,3 +53,4 @@ install(TARGETS appPizza
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
